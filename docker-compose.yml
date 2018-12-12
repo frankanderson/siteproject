@@ -1,0 +1,24 @@
+version: '2'
+    
+services:
+  traefik:
+    image: traefik:1.5-alpine
+    command: --docker
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - traefiknet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/traefik/traefik.toml:/traefik.toml
+      - /opt/traefik/acme.json:/acme.json
+    labels:
+      - "traefik.frontend.rule=Host:monitor.yourdomain.com" 
+      - "traefik.port=8080"
+    container_name: traefik
+    
+networks:
+  traefiknet:
+    external: true
