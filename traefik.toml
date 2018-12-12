@@ -1,0 +1,33 @@
+debug = false
+checkNewVersion = true
+logLevel = "ERROR"
+defaultEntryPoints = ["https","http"]
+    
+[web]
+address = ":8080"
+[web.auth.basic]
+users = ["admin:$apr1$ruca84Hq$mbjdMZBAG.KWn7vfN/SNK/"]
+    
+[entryPoints]
+[entryPoints.http]
+address = ":80"
+[entryPoints.http.redirect]
+entryPoint = "https"
+[entryPoints.https]
+address = ":443"
+[entryPoints.https.tls]
+    
+[retry]
+    
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "EXAMPLE.COM"
+watch = true
+exposedbydefault = false
+    
+[acme]
+email = "YOUR EMAIL ADDRESS"
+storage = "acme.json"
+entryPoint = "https"
+[acme.tlsChallenge]
+OnHostRule = true
